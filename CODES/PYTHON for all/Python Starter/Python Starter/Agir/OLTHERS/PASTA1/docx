@@ -1,0 +1,9 @@
+p1 = 7
+p2= 4
+p3= 5
+p4 = 9
+
+soma = p1+p2 + p3 + p4
+média = soma / 4
+print(média)
+

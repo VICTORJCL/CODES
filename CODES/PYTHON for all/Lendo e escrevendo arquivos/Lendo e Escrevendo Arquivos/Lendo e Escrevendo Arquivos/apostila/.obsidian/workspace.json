@@ -1,0 +1,176 @@
+{
+  "main": {
+    "id": "63b00eb4e4846c6e",
+    "type": "split",
+    "children": [
+      {
+        "id": "6c4738d45a278beb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4ada2149cefa7249",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Pasted image 20230815115534.png.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7568afc1e8dd858f",
+    "type": "split",
+    "children": [
+      {
+        "id": "8cee01958613803c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "50e0e49e41b294a4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "683dcd2314c576f5",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e1a29cf9d98ab193",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 536.5
+  },
+  "right": {
+    "id": "6a523f5f94afd36d",
+    "type": "split",
+    "children": [
+      {
+        "id": "78f9a3f1d7bd87ce",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "15001356544976a4",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Pasted image 20230815115534.png.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "37618b1aabcd98be",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Pasted image 20230815115534.png.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b1175e29d3fabce4",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "358d646ff20ff925",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Pasted image 20230815115534.png.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "4ada2149cefa7249",
+  "lastOpenFiles": [
+    "19. Lendo e Escrevendo Arquivos XML.md",
+    "18. Lendo e Escrevendo Arquivos Pickle.md",
+    "17. Lendo e Escrevendo Json.md",
+    "16. DESAFIO - Separando e Consolidando Planilhas.md",
+    "15. Lendo e Escrevendo Planilhas.md",
+    "14. DESAFIO - Modificando arquivo html.md",
+    "13. Lendo e Escrevendo Arquivos de Texto.md",
+    "12. DESAFIO - Organizando Arquivos por extensão.md",
+    "11. Compactando e Descompactando Pastas.md",
+    "10. Copiando, Movendo e Deletando Pastas.md",
+    "09. Copiando, Movendo e Deletando Arquivos.md",
+    "08. DESAFIO - Tamanho de uma pasta.md",
+    "07. EXERCÍCIO - Encontrando arquivo.md",
+    "06. Retornando Conteúdos de uma Pasta.md",
+    "05. Manipulando Caminhos de Arquivos.md",
+    "04. Caminhos Absolutos e Caminhos Relativos.md",
+    "03. Construindo caminhos com pathlib.md",
+    "02. Arquivos e Caminho de Arquivos.md",
+    "01. O que vamos aprender neste curso_.md",
+    "Pasted image 20230815115534.png.md",
+    "01. Slides.md",
+    "02. Slide.md",
+    "00. Index.md",
+    "09. Cola script.md"
+  ]
+}

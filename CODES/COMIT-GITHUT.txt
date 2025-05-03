@@ -1,0 +1,11 @@
+1-primeiro no terminal aperte:
+cd  codes
+
+
+APERTE O BOTÃO COMIT PRIMEIRAMENTE, E DEPOIS EXECUTE O CÓDIGO:
+git push --mirror --force
+
+
+OU  EXECUTE:
+# Force o push do seu repositório local para o remoto usando a flag -f (force)
+git push -f origin master

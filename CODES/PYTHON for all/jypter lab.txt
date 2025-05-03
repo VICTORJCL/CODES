@@ -1,0 +1,3 @@
+python -m jupyterlab
+
+pip install -r ./requeriments.txt                  requerimentes is the archive name
