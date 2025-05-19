@@ -11,6 +11,11 @@ try:
     df_sheet3=df[sheets_pandas_planílhas[2]]    #sheet3
     print(type(df_sheet1))
 
+    '''MUDAR NOME DE COLUNA'''
+    # Modificar o nome da coluna (exemplo: mudar 'coluna_antiga' para 'coluna_nova')
+    df.rename(columns={'Unnamed: 1': "TELEFONE",'Unnamed: 2':'EMAIL', 'Unnamed: 3': 'NOME'}, inplace=True)
+
+
     ''' RESETAR INDEX'''
     df.reset_index(drop=True)
     df_sheet2=df_sheet2.iloc[5:].reset_index(drop=True) # com drop=True descarta outros índex
@@ -63,7 +68,15 @@ try:
     # Criar coluna de dobro da idade
     df['idade_dobro'] = df['idade'] * 2
 
+
     '''Limpeza de dados:'''
+    # seleciona somente o df que a coluna 'Unnamed: 1' não é nulo 
+    df= df[df['Unnamed: 1'].notna()]   
+    #  Remove as linhas que a  coluna 'Unnamed: 1' está vazia
+    df = df.dropna(subset=['Unnamed: 1'])
+    #  REMOVER AS PRIMEIRAS 3000 linhas 
+    df = df.drop(range(0, 3001))   #ou
+    df = df.iloc[3001:]
     # Remover linhas com valores faltantes
     df.dropna()
     db_sheet2.dropna(axis=1, how='all')  #how='all' quando todas as linhas da coluna forem vazias
