@@ -19,3 +19,16 @@ cont=5
 for i in range(2,cont):
     cont*=i
 '''
+
+
+
+
+import pandas as pd
+# https://docs.google.com/spreadsheets/d/1pvBoLyX8kP0TjtUbadVMGdTl4yzm6bHMThhPiqCVtpw/edit?usp=sharing
+id='1pvBoLyX8kP0TjtUbadVMGdTl4yzm6bHMThhPiqCVtpw'
+
+
+url_completa='https://docs.google.com/spreadsheets/d/1pvBoLyX8kP0TjtUbadVMGdTl4yzm6bHMThhPiqCVtpw/gviz/tq?tqx=out:csv&sheet'
+df=pd.read_csv(url_completa)
+df
+

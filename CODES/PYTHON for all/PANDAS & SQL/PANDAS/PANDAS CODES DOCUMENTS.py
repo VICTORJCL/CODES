@@ -1,15 +1,26 @@
 import pandas as pd
+import openpyxl as op
 # ??? Como add valor em cada célula com o data frame ????
 try:
-    df = pd.read_excel('TesteBrasilmadVBA.xlsx')
+
+    '''Carregamento'''
+    df = pd.read_excel('TesteBrasilmadVBA.xlsx', sheet_name='Sheet1')
+    dados_ponto_virgula = pd.read_csv(url_2, sep = ';')   # sep = ';' muda o separador de colunas csv, o padrão é virgula
+    #  carregamento selecionando o intevalo de colunas do excel usecols= 'A:D' e o número de linhas nrows=10
+    intervalo_2 = pd.read_excel(url, sheet_name='emissoes_C02', usecols= 'A:D', nrows=10)
+    #  carregar somente usando certas colunas
+    dados_selecao = pd.read_csv(url, usecols=['Id', 'Year_Birth', 'Income'])   # ou
+    dados_selecao = pd.read_csv(url, usecols=[0,1,4])
+   
 
     '''PEGANDO SHEETS(tabelas)'''
+    arquivo=pd.ExcelFile('Desafio_Brasilmad\TesteBrasilmadVBA.xlsx')
+    sheets=arquivo.sheet_names
+    #  outra forma
     sheets_pandas_planílhas=list(df.keys())
     print(sheets_pandas_planílhas)
     df_sheet1=df[sheets_pandas_planílhas[0]]  #sheet1
-    df_sheet2=df[sheets_pandas_planílhas[1]]       #sheet3
-    df_sheet3=df[sheets_pandas_planílhas[2]]    #sheet3
-    print(type(df_sheet1))
+
 
     '''MUDAR NOME DE COLUNA'''
     # Modificar o nome da coluna (exemplo: mudar 'coluna_antiga' para 'coluna_nova')
@@ -42,6 +53,7 @@ try:
     df.tail()
     # Ver informações sobre os dados
     df.info()
+
     ''' Filtragem:'''
     # Pegar linhas onde idade > 10
     df[df['idade'] > 10]
@@ -76,7 +88,8 @@ try:
     df = df.dropna(subset=['Unnamed: 1'])
     #  REMOVER AS PRIMEIRAS 3000 linhas 
     df = df.drop(range(0, 3001))   #ou
-    df = df.iloc[3001:]
+    df = df.iloc[3001:] # sobrescrever o df pelas linhas selecionadas
+
     # Remover linhas com valores faltantes
     df.dropna()
     db_sheet2.dropna(axis=1, how='all')  #how='all' quando todas as linhas da coluna forem vazias
@@ -118,7 +131,7 @@ try:
 
     '''Salvando de Formas Diferentes:'''
     # Salvar em Excel bonitinho
-    df.to_excel('arquivo_novo.xlsx', index=False)
+    df.to_excel('arquivo_novo.xlsx', index=False)   #salva sem a coluna index
     # Salvar em CSV
     df.to_csv('arquivo.csv', sep=';')
 
@@ -127,8 +140,12 @@ try:
     df.groupby('Empresa').min() # mínimo de cada grupo
     df.groupby('Empresa').max() # máximo de cada grupo
     
-
-
+    """carregamento no google colab via google planílhas link"""
+    ulr_bruta= 'https://docs.google.com/spreadsheets/d/1lzq0k-41-MbbS63C3Q9i1wPvLkSJt9zhr4Jolt1vEog/edit?usp=sharing'
+    sheet_id = '1lzq0k-41-MbbS63C3Q9i1wPvLkSJt9zhr4Jolt1vEog'
+    sheet_name = 'fontes'
+    url_fontes = f'https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}'
+    fontes_sheets = pd.read_csv(url_fontes)
 
 
 
