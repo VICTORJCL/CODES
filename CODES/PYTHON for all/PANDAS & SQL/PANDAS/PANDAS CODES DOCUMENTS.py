@@ -1,7 +1,11 @@
 import pandas as pd
 # ??? Como add valor em cada célula com o data frame ????
 try:
+    '''Carregamento'''
     df = pd.read_excel('TesteBrasilmadVBA.xlsx')
+    #  sep=';' significa separador por ; então identifica as colunas do csv que tem esse separador
+    dados = pd.read_csv('https://raw.githubusercontent.com/alura-cursos/pandas-conhecendo-a-biblioteca/main/base-de-dados/aluguel.csv', sep=';')
+
 
     '''PEGANDO SHEETS(tabelas)'''
     sheets_pandas_planílhas=list(df.keys())
@@ -14,6 +18,10 @@ try:
     ''' RESETAR INDEX'''
     df.reset_index(drop=True)
     df_sheet2=df_sheet2.iloc[5:].reset_index(drop=True) # com drop=True descarta outros índex
+    
+    '''CRIAR NOVAS COLUNAS:'''
+    # Criar coluna de dobro da idade
+    df['idade_dobro'] = df['idade'] * 2
 
 
     '''PGAR LINHAS E COLUNAS'''
@@ -25,23 +33,47 @@ try:
     
     '''COPIANDO DATAFRAME sem alterar o valor do original, se fisser df2 = df1,  o df1 é alterado também'''
     df2=df.copy()
-    '''concatenar dataframes'''
+    '''CONCATENAR dataframes'''
     df3=pd.concat([df,df2])
 
     '''Ver_os_Dados''' 
-    display(df)  #  usa no lugar do print para organizar o dataframe
-    print(df)  # mostra o df  5 linhas iniciais e 5 linhas finais
-    print(df.shape) # mostra DF com as linhas e colunas ao final do DF
+    df.info() # Ver informações sobre os TIPOS DE DADOS
+    df.shape # QUANTIDADE DE LINHAS E COLUNAS
+    df.tail() # Ver as últimas 5 linhas
     df.head()    # Ver as primeiras 5 linhas
-    # Ver as últimas 5 linhas
-    df.tail()
-    # Ver informações sobre os dados
-    df.info()
-    ''' Filtragem:'''
+     
+    '''SUBSTITUIR VALORES  .replace() .apply(lambda...)'''
+    df['Notas'] = df['Notas'].replace(7, 8) 
+    # LAMBDA substitur valores por uma filtrabem
+    df["Aprovado_final"] = df['Notas_finais'].apply(lambda x: True if x >=6 else False)  # troca para True se o valor é maior que 6 caso contrário fica False
+
+    ''' FILTRAGEM:'''
+    # Filtrar df de forma diferente de query: 
+    selecao = (df['Quartos'] >= 2) & (df['Valor'] < 3000) & (df['Area'] > 70)
     # Pegar linhas onde idade > 10
     df[df['idade'] > 10]
     # Pegar linhas onde nome é 'João'
     df[df['nome'] == 'João']
+
+    # FILTRAGEM DE VALORES QUE APARECEM UMA ÚNICA VEZ
+    bairros_unicos = df[ df['Bairro'].map(df['Bairro'].value_counts() ==1)]
+    bairros_unicos['Bairro'].unique()
+
+    # selecionar UM DF com COLUNAS SELECIONADAS
+    valores_df= df[["Idade","Notas"]]
+
+    '''FILTRAGEM POR TIPO         query() e groupby() '''
+    dados.query('@imoveis_comerciais in Tipo')
+    df.query('Aprovado==False & Aprovado_final ==True')
+    df.groupby(['Animal', 'Cor'])[['Quantidade']].sum()
+
+    '''Agrupamento                  groupby()'''
+    # Agrupar por cor e calcular média de idade
+    df.groupby('cor')['idade'].mean()
+    df.groupby(['Animal', 'Cor'])[['Quantidade']].sum()  # ORDENA POR ANIMAL, cor e soma a quantidade
+    # média dos bairros que possuem média de aluguel mais elevada
+    df.groupby(['Bairro'])[['Valor']].mean().sort_values("Valor",ascending=False).head(10)
+
     '''Ordenação'''
     # Ordenar por idade
     df.sort_values('idade')
@@ -56,18 +88,14 @@ try:
     # Contar valores únicos
     df['cor'].value_counts()
 
-    '''Agrupamento:'''
-    # Agrupar por cor e calcular média de idade
-    df.groupby('cor')['idade'].mean()
-    '''Criando novas colunas:'''
-    # Criar coluna de dobro da idade
-    df['idade_dobro'] = df['idade'] * 2
-
     '''Limpeza de dados:'''
+    # remover registros: drop() requer o index para remover tipo : [7, 8]
+    df.drop(df.query('Nome == "Alice" | Nome == "Carlos"' ).index, axis=0, inplace=True)
+
     # Remover linhas com valores faltantes
     df.dropna()
-    db_sheet2.dropna(axis=1, how='all')  #how='all' quando todas as linhas da coluna forem vazias
-    #  remove com pelo menos 2 valores ausentes na coluna
+    df.dropna(axis=1, how='all')  #how='all' quando todas as linhas da coluna forem vazias
+    #  remove colunas com pelo menos 2 valores ausentes na coluna
     df.dropna(axis=1,thresh=2)
     # Preencher valores faltantes com 0
     df.fillna(0)
@@ -102,6 +130,10 @@ try:
     # Pegar só o mês ou ano
     df['mes'] = df['data'].dt.month
     df['ano'] = df['data'].dt.year
+
+    '''CRIANDO GRÁFICOS COM PLOT DIRETAMENTE''' #.plot(kind='bar', figsize=(10, 5), title='Top 5 ')
+    df.groupby(['Bairro'])[['Valor']].mean().sort_values("Valor", ascending=False).head(5).plot(kind='bar', figsize=(10, 5), title='Top 5 Bairros com Maior Valor Médio')
+
 
     '''Salvando de Formas Diferentes:'''
     # Salvar em Excel bonitinho
