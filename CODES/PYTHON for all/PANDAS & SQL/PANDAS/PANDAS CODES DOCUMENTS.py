@@ -5,6 +5,7 @@ try:
 
     '''Carregamento'''
     df = pd.read_excel('TesteBrasilmadVBA.xlsx', sheet_name='Sheet1')
+    dados = pd.read_excel('TesteBrasilmadVBA.xlsx', sheet_name='Sheet1')
     dados_ponto_virgula = pd.read_csv(url_2, sep = ';')   # sep = ';' muda o separador de colunas csv, o padrão é virgula
     #  carregamento selecionando o intevalo de colunas do excel usecols= 'A:D' e o número de linhas nrows=10
     intervalo_2 = pd.read_excel(url, sheet_name='emissoes_C02', usecols= 'A:D', nrows=10)
@@ -14,6 +15,12 @@ try:
     #  NORMALIZANDO ARQUIVOS JSON
     df_normalizado = pd.json_normalize(dados_pacientes_2['Pacientes'])
    
+    ''' CONVERTER COLUNA DE DADOS'''
+    import  numpy as np
+    dados['max_hospedes'] = dados['max_hospedes'].astype(np.int64)
+    #  para várias colunas:
+    col_numericas = ['quantidade_banheiros','quantidade_quartos','quantidade_camas']
+    dados[col_numericas] = dados[col_numericas].astype(np.float64)
 
     '''PEGANDO SHEETS(tabelas)'''
     arquivo=pd.ExcelFile('Desafio_Brasilmad\TesteBrasilmadVBA.xlsx')
@@ -149,6 +156,9 @@ try:
     url_fontes = f'https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}'
     fontes_sheets = pd.read_csv(url_fontes)
 
+    ''' DESAGRUPAR dados .json'''
+    dados = dados.explode(colunas[3:])
+    dados.reset_index(inplace=True, drop=True) # resetar index e excluir as colunas antigas
 
 
 
