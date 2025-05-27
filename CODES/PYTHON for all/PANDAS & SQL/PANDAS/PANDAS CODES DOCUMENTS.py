@@ -162,5 +162,36 @@ try:
     # 🔹 Salvar de volta no Excel
     df_excel.to_excel(file_path, sheet_name=sheet_name, index=False, engine="openpyxl")
 
+
+
+    ''' CRIAR UM BANCO DE DADOS sqlite E ADD TABELA '''
+    #  O COMANDO  reate_engine('sqlite:///:memory:') cria o banco de dados
+    import sqlalchemy
+    from sqlalchemy import create_engine, MetaData, Table, inspect
+    engine = create_engine('sqlite:///:memory:')
+    # ADD A TABELA NO BANCO DE DADOS:
+    df.to_sql('clientes', engine, index=False)
+    #  INSPECIONAR AS TABELAS NO BANCO DE DADOS
+    inspector = inspect(engine)
+    print(inspector.get_table_names())
+    #  FILTRAR A TABELA COM SQL COM read_sql()
+    query = 'SELECT * FROM clientes WHERE Categoria_de_renda="Empregado"'
+    empregados = pd.read_sql(query, engine)
+    #  SALVAR A TABELA FILTRADA COMO UMA NOVA TABELA NO BANCO DE DADOS
+    empregados.to_sql('empregados', con=engine, index=False)
+    #  PARA LER A TABELA DO BANCO DE DADOS
+    pd.read_sql_table('empregados', engine)
+    # LER A TABELA SELECIONANDO AS COLUNAS
+    pd.read_sql_table('empregados', engine, columns=['ID_Cliente', 'Grau_escolaridade', 'Rendimento_anual'])
+    '''read_sql é utilizado para executar uma consulta SQL e retornar os resultados dessa consulta. Ou seja, 
+    você pode filtrar e selecionar apenas as informações que deseja.'''
+    '''read_sql_table, por outro lado, é usado para ler uma tabela inteira do banco de dados. Com ele, você acessa todos os dados
+      daquela tabela sem precisar fazer uma consulta específica.'''
+    # ATUALIZANDO um banco de dados
+
+    query = 'UPDATE clientes SET Grau_escolaridade="Ensino superior" WHERE ID_Cliente=5008808'
+    with engine.connect() as conn:
+        conn.execute(query)
+    pd.read_sql_table('clientes', engine)
 except:
     pass
