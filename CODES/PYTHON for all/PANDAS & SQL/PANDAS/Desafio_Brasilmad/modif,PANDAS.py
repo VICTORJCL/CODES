@@ -42,3 +42,25 @@ fornecedor = sheet0['C21'].value
 resultados = busca_pandas()
 
 wb.save('TesteBrasilmadVBA.xlsx')
+
+
+
+df = pd.read_excel('TesteBrasilmadVBA.xlsx', sheet_name='BD COMPRAS', skiprows=5)
+df.columns
+
+df.info()
+df['NumNF'] =df['NumNF'].astype('float64')
+df.applymap(lambda x: x+1)
+df[['NumNF','FornecedorId']] = df[['NumNF','FornecedorId']].applymap(lambda x:x*10)
+
+# Aplica a função apenas nas colunas numéricas
+df_numerico = df.select_dtypes(include=['int64', 'float64'])
+df[df_numerico.columns] = df_numerico.applymap(lambda x: x + 1)
+
+
+db = pd.DataFrame({
+    'A': [1, 2, 3],
+    'B': [4, 5, 6],
+    'C': [7, 8, 9]
+})
+db.applymap(lambda x:x*10)

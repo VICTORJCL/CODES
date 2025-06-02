@@ -1,6 +1,6 @@
 import pandas as pd
 import openpyxl as op
-# ??? Como add valor em cada célula com o data frame ????
+# ??? falta estudar mais o regex,  manipulação de datas  e banco de dados????
 try:
 
     '''Carregamento'''
@@ -125,18 +125,22 @@ try:
     # Aplicar uma mudança em toda coluna
     df['nome'] = df['nome'].str.upper()  # Deixa tudo maiúsculo
 
+    '''TRANSFORMAR DADOS PARA DATA'''
+    # Transformar texto em data
+    df['data'] = pd.to_datetime(df['data'])
+    df['data'].dt.strftime('%Y-%m')
+    # Pegar só o mês ou ano
+    df['mes'] = df['data'].dt.month
+    df['ano'] = df['data'].dt.year
+    # MANIPULAÇÃO DE DATA
+    #### O resultado final será uma série que mostra quantas vagas estavam disponíveis em cada mês do ano
+    df.groupby(df['data'].dt.strftime('%Y-%m'))['vaga_disponivel'].sum()
+
     '''Juntando Planilhas '''
     # Juntar lado a lado (merge)
     novo_df = pd.merge('df1', 'df2', on='nome')
     # Empilhar uma em cima da outra (concat)
     df_grandao = pd.concat(['df1', 'df2'])
-
-    '''Trabalhando com Datas'''
-    # Transformar texto em data
-    df['data'] = pd.to_datetime(df['data'])
-    # Pegar só o mês ou ano
-    df['mes'] = df['data'].dt.month
-    df['ano'] = df['data'].dt.year
 
     '''Salvando de Formas Diferentes:'''
     # Salvar em Excel bonitinho
@@ -172,7 +176,11 @@ try:
     # 🔹 Salvar de volta no Excel
     df_excel.to_excel(file_path, sheet_name=sheet_name, index=False, engine="openpyxl")
 
-
+    # REGEX manipulando strings
+    dados['descricao_local'].str.replace('[^a-zA-Z0-9\-\']', ' ', regex=True)
+    # remover os hifens que não estejam conectando palavras compostas ***(?<!\w): uma "lookbehind" negativa que verifica se há um caractere de palavra antes do hífen ou se há apenas um espaço em branco, resultando em "verdadeiro" se não houver nada
+    dados['descricao_local'].str.replace('(?<!\w)-(?!\w)', '', regex=True)  #(?!\w): uma lookahead negativa que verifica se há um caractere de palavra depois do hífen.
+    dados['comodidades'] = dados['comodidades'].str.replace('\{|}|\"','',regex=True)
 
     ''' CRIAR UM BANCO DE DADOS sqlite E ADD TABELA '''
     #  O COMANDO  reate_engine('sqlite:///:memory:') cria o banco de dados
