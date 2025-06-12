@@ -14,6 +14,9 @@ try:
     dados_selecao = pd.read_csv(url, usecols=[0,1,4])
     #  NORMALIZANDO ARQUIVOS JSON
     df_normalizado = pd.json_normalize(dados_pacientes_2['Pacientes'])
+
+    ''' INVERTE LINHAS PARA COLUNAS .T'''
+    df= df.T
    
     ''' CONVERTER COLUNA DE DADOS'''
     import  numpy as np
